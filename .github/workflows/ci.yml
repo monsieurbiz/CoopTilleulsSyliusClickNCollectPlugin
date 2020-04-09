@@ -3,6 +3,7 @@ name: CI
 on: [ push, pull_request ]
 
 jobs:
+
   tests:
 
     runs-on: ubuntu-latest
@@ -10,10 +11,30 @@ jobs:
     env:
       DATABASE_URL: mysql://root:root@127.0.0.1/click_n_collect_test?serverVersion=5.7
 
+    strategy:
+      fail-fast: false
+      matrix:
+        # We do not run tests in 7.2 because the tests/Application isn't compatible and it's fine this way
+        # We consider it enough to test the installation with PHP 7.2 in sylius tests.
+        php: [7.3, 7.4]
+
     steps:
       - uses: actions/checkout@v2
 
-      - name: Validate composer.json and composer.lock
+      - name: Switch PHP
+        run: sudo update-alternatives --set php /usr/bin/php${{ matrix.php }}
+
+      - uses: actions/cache@v1
+        id: cache-composer
+        with:
+          path: /home/runner/.composer/cache
+          key: composer-php.${{ matrix.php }}-tests-${{ github.sha }}
+          restore-keys: composer-php.${{ matrix.php }}-tests-
+
+      - run: mkdir -p /home/runner/.composer/cache
+        if: steps.cache-composer.outputs.cache-hit != 'true'
+
+      - name: Validate composer.json
         run: composer validate
 
       - name: Install dependencies
@@ -25,13 +46,100 @@ jobs:
           (cd tests/Application && bin/console doctrine:database:create -e panther)
           (cd tests/Application && bin/console doctrine:schema:create -e panther)
           (cd tests/Application && bin/console sylius:fixtures:load -e panther --no-interaction)
-
           (cd tests/Application && yarn install)
           (cd tests/Application && yarn build)
           (cd tests/Application && bin/console assets:install public -e panther)
 
       - name: Run test suite
         run: vendor/bin/phpunit
+
+  sylius:
+
+    runs-on: ubuntu-latest
+
+    env:
+      DATABASE_URL: mysql://root:root@127.0.0.1/click_n_collect_test?serverVersion=5.7
+      SYMFONY_ENDPOINT: http://127.0.0.1/
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php: [7.2, 7.3, 7.4]
+        sylius: [1.6, 1.7]
+        exclude:
+          - php: 7.2
+            sylius: 1.7
+
+    steps:
+
+      - uses: actions/checkout@v2
+        with:
+          path: plugin
+
+      - name: Run standalone symfony flex server
+        run: |
+          echo ${{ github.token }} | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+          docker run --rm --name flex -d -v $PWD/plugin/recipe:/var/www/flex/var/repo/private/tilleuls/sylius-click-n-collect-plugin -p 80:80 docker.pkg.github.com/monsieurbiz/docker/symfony-flex-server:latest contrib official
+          docker ps
+
+      - name: Switch PHP
+        run: sudo update-alternatives --set php /usr/bin/php${{ matrix.php }}
+
+      - uses: actions/cache@v1
+        id: cache-composer
+        with:
+          path: /home/runner/.composer/cache
+          key: composer-php.${{ matrix.php }}-sylius.${{ matrix.sylius }}-${{ github.sha }}
+          restore-keys: composer-php.${{ matrix.php }}-sylius.${{ matrix.sylius }}-
+
+      - run: mkdir -p /home/runner/.composer/cache
+        if: steps.cache-composer.outputs.cache-hit != 'true'
+
+      - name: Validate composer.json
+        working-directory: plugin
+        run: composer validate
+
+      - name: Composer Github Auth
+        run: composer config -g github-oauth.github.com ${{ github.token }}
+
+      - name: Install Sylius-Standard
+        run: |
+          composer create-project --prefer-dist --no-scripts --no-progress sylius/sylius-standard sylius "~${{ matrix.sylius }}.0"
+
+      - name: Init database
+        working-directory: sylius
+        run: |
+          sudo /etc/init.d/mysql start
+          php bin/console doctrine:database:create -e panther --if-not-exists
+          php bin/console doctrine:migr:migr -n -e panther
+
+      - name: Install plugin
+        working-directory: sylius
+        run: |
+          composer config repositories.plugin '{"type": "path", "url": "../plugin/"}'
+          composer config extra.symfony.allow-contrib true
+          composer config secure-http false
+          composer require tilleuls/sylius-click-n-collect-plugin="*@dev"
+
+      - name: Copy Entities
+        run: cp -Rv plugin/samples/src/* sylius/src/
+
+      - name: Tail flex server
+        run: docker logs --tail 100 flex
+
+      - name: Update database schema
+        working-directory: ./sylius
+        run: |
+          php bin/console doctrine:migr:diff -vvv -e panther
+          php bin/console doctrine:migr:migr -n -e panther
+
+      - name: Configure test app
+        working-directory: sylius
+        run: |
+          php bin/console sylius:fixtures:load -e panther --no-interaction
+          yarn install
+          yarn build
+          php bin/console assets:install public -e panther
 
   php-cs-fixer:
 

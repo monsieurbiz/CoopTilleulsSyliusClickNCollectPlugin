@@ -1,0 +1,12 @@
+{
+    "bundles": {
+        "CoopTilleuls\\SyliusClickNCollectPlugin\\CoopTilleulsSyliusClickNCollectPlugin": ["all"]
+    },
+    "copy-from-recipe": {
+        "config/": "%CONFIG_DIR%/"
+    },
+    "copy-from-package": {
+        "tests/Application/templates/": "templates/",
+        "samples/src/": "%SRC_DIR%/"
+    }
+}
