@@ -24,7 +24,7 @@ use Symfony\Component\Validator\Constraint;
  */
 final class SlotAvailable extends Constraint
 {
-    public string $message = 'The time slot "{{ value }}" is not available anymore.';
+    public $message = 'The time slot "{{ value }}" is not available anymore.';
 
     public function getTargets()
     {

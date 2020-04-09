@@ -29,9 +29,9 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 final class CollectionTimesController
 {
-    private ObjectRepository $shipmentRepository;
-    private ObjectRepository $locationRepository;
-    private AvailableSlotsComputerInterface $availableSlotsComputer;
+    private $shipmentRepository;
+    private $locationRepository;
+    private $availableSlotsComputer;
 
     public function __construct(ObjectRepository $shipmentRepository, ObjectRepository $locationRepository, AvailableSlotsComputerInterface $availableSlotsComputer)
     {

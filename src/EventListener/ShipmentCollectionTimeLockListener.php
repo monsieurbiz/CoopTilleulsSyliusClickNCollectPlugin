@@ -28,10 +28,10 @@ use Symfony\Component\Lock\LockInterface;
  */
 final class ShipmentCollectionTimeLockListener
 {
-    private EntityManagerInterface $entityManager;
-    private CollectionTimeRepositoryInterface $collectionTimeRepository;
-    private LockInterface $lock;
-    private string $shipmentClass;
+    private $entityManager;
+    private $collectionTimeRepository;
+    private $lock;
+    private $shipmentClass;
 
     public function __construct(EntityManagerInterface $entityManager, LockInterface $lock, CollectionTimeRepositoryInterface $collectionTimeRepository)
     {

@@ -24,18 +24,18 @@ trait ClickNCollectShipment
     /**
      * @ORM\ManyToOne(targetEntity=CoopTilleuls\SyliusClickNCollectPlugin\Entity\Location::class)
      */
-    protected ?Location $location = null;
+    protected $location = null;
 
     /**
      * @ORM\Column(type="string", nullable=true)
      */
-    protected ?string $pin = null;
+    protected $pin = null;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true, name="collection_time")
      * @Assert\GreaterThan("now", groups={"sylius"})
      */
-    protected ?\DateTimeInterface $collectionTime = null;
+    protected $collectionTime = null;
 
     public function getLocation(): ?Location
     {

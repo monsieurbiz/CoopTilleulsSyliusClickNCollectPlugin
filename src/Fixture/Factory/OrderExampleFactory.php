@@ -33,7 +33,7 @@ use Sylius\Component\Resource\Repository\RepositoryInterface;
  */
 class OrderExampleFactory extends BaseOrderExampleFactory
 {
-    private AvailableSlotsComputerInterface $availableSlotsComputer;
+    private $availableSlotsComputer;
 
     public function __construct(FactoryInterface $orderFactory, FactoryInterface $orderItemFactory, OrderItemQuantityModifierInterface $orderItemQuantityModifier, ObjectManager $orderManager, RepositoryInterface $channelRepository, RepositoryInterface $customerRepository, ProductRepositoryInterface $productRepository, RepositoryInterface $countryRepository, PaymentMethodRepositoryInterface $paymentMethodRepository, ShippingMethodRepositoryInterface $shippingMethodRepository, FactoryInterface $addressFactory, StateMachineFactoryInterface $stateMachineFactory, OrderShippingMethodSelectionRequirementCheckerInterface $orderShippingMethodSelectionRequirementChecker, OrderPaymentMethodSelectionRequirementCheckerInterface $orderPaymentMethodSelectionRequirementChecker, AvailableSlotsComputerInterface $availableSlotsComputer)
     {

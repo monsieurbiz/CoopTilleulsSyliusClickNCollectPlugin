@@ -27,7 +27,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 final class ShipmentTypeExtension extends AbstractTypeExtension
 {
-    private ObjectRepository $repository;
+    private $repository;
 
     public function __construct(ObjectRepository $repository)
     {

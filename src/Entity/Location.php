@@ -31,22 +31,22 @@ class Location implements LocationInterface
 
     /** @var mixed */
     protected $id;
-    protected ?string $code = null;
-    protected string $name = '';
-    protected ?string $street = null;
-    protected ?string $city = null;
-    protected ?string $postcode = null;
-    protected ?string $countryCode = null;
-    protected ?string $provinceCode = null;
-    protected ?string $provinceName = null;
-    protected string $rrule = 'FREQ=MINUTELY;INTERVAL=20;BYHOUR=9,10,11,12,13,14,15,16;BYDAY=MO,TU,WE,TH,FR;DTSTART=20200328T080000;DTEND=20200328T082000';
-    protected int $orderPreparationDelay = 0;
-    protected int $throughput = 1;
-    protected bool $generatePin = false;
+    protected $code = null;
+    protected $name = '';
+    protected $street = null;
+    protected $city = null;
+    protected $postcode = null;
+    protected $countryCode = null;
+    protected $provinceCode = null;
+    protected $provinceName = null;
+    protected $rrule = 'FREQ=MINUTELY;INTERVAL=20;BYHOUR=9,10,11,12,13,14,15,16;BYDAY=MO,TU,WE,TH,FR;DTSTART=20200328T080000;DTEND=20200328T082000';
+    protected $orderPreparationDelay = 0;
+    protected $throughput = 1;
+    protected $generatePin = false;
     /**
      * @var ShippingMethodInterface[]|Collection
      */
-    protected Collection $shippingMethods;
+    protected $shippingMethods;
 
     public function __construct()
     {

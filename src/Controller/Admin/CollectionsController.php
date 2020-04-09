@@ -24,8 +24,8 @@ use Twig\Environment;
  */
 final class CollectionsController
 {
-    private ObjectRepository $locationRepository;
-    private Environment $twig;
+    private $locationRepository;
+    private $twig;
 
     public function __construct(ObjectRepository $locationRepository, Environment $twig)
     {

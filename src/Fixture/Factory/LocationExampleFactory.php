@@ -29,10 +29,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final class LocationExampleFactory extends AbstractExampleFactory
 {
-    private FactoryInterface $locationFactory;
-    private Generator $faker;
-    private OptionsResolver $optionsResolver;
-    private ShippingMethodRepositoryInterface $shippingMethodRepository;
+    private $locationFactory;
+    private $faker;
+    private $optionsResolver;
+    private $shippingMethodRepository;
 
     public function __construct(FactoryInterface $locationFactory, ShippingMethodRepositoryInterface $shippingMethodRepository)
     {
