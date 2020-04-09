@@ -48,7 +48,7 @@ final class CollectionTimeRepository implements CollectionTimeRepositoryInterfac
             GROUP BY s.location, s.collectionTime
             HAVING COUNT(s.id) >= :throughput
             ORDER BY s.collectionTime
-        DQL
+DQL
         )->setParameters([
             'location' => $location,
             'start_date' => $start,
@@ -70,7 +70,7 @@ final class CollectionTimeRepository implements CollectionTimeRepositoryInterfac
             WHERE s.location = :location
             AND s.collectionTime = :collection_time
             GROUP BY s.location, s.collectionTime
-        DQL
+DQL
         )->setParameters([
             'location' => $location,
             'collection_time' => $collectionTime,
@@ -90,7 +90,7 @@ final class CollectionTimeRepository implements CollectionTimeRepositoryInterfac
             WHERE s.state = 'ready'
             AND s.location = :location
             AND s.collectionTime BETWEEN :start_date AND :end_date
-        DQL
+DQL
         )->setParameters([
             'location' => $location,
             'start_date' => $start,
