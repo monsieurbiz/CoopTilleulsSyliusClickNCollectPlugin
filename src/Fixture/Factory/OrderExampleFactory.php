@@ -41,7 +41,7 @@ class OrderExampleFactory extends BaseOrderExampleFactory
         $this->availableSlotsComputer = $availableSlotsComputer;
     }
 
-    protected function selectShipping(OrderInterface $order, \DateTimeInterface $createdAt): void
+    protected function selectShipping(OrderInterface $order, ?\DateTimeInterface $createdAt = null): void
     {
         parent::selectShipping($order, $createdAt);
 
@@ -59,7 +59,7 @@ class OrderExampleFactory extends BaseOrderExampleFactory
 
     private function setCollectionTime(ClickNCollectShipmentInterface $shipment): void
     {
-        if ($shippedAt = $shipment->getShippedAt()) {
+        if (method_exists($shipment, 'getShippedAt') && ($shippedAt = $shipment->getShippedAt())) {
             $shippedAtImmutable = \DateTimeImmutable::createFromMutable($shipment);
             $startDate = $shippedAtImmutable->sub('-3 days');
             $endDate = $shippedAtImmutable->add('+1 days');
