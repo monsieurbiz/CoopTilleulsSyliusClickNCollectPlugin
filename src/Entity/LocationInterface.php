@@ -99,4 +99,11 @@ interface LocationInterface extends ResourceInterface, CodeAwareInterface, Times
     public function addShippingMethod(ClickNCollectShippingMethodInterface $shippingMethod): void;
 
     public function removeShippingMethod(ClickNCollectShippingMethodInterface $shippingMethod): void;
+
+    /*
+     * Email address (custom)
+     */
+    public function setEmailAddress(string $emailAddress): void;
+
+    public function getEmailAddress(): ?string;
 }
