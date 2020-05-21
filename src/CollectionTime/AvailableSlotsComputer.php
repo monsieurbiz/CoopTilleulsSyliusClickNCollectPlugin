@@ -55,7 +55,7 @@ final class AvailableSlotsComputer implements AvailableSlotsComputerInterface
         $fullSlots = $this->collectionTimeRepository->findFullSlots($location, $startDate, $endDate);
         $recurrences = (new ArrayTransformer((new ArrayTransformerConfig())->setVirtualLimit($limit)))->transform(
             new Rule($location->getRrule()),
-            new BetweenConstraint($startDate, $endDate)
+            new BetweenConstraint($startDate, $endDate, true)
         );
 
         $sameLocation = $location === $shipment->getLocation();
