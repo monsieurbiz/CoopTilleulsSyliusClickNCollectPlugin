@@ -54,14 +54,12 @@ final class ShipmentCollectionTimeLockListener
 
         $this->lock->acquire(true);
         foreach ($shipments as $shipment) {
-            if ($shipment->isClickNCollect()) {
-                $previousCollectionTime = $unitOfWork->getOriginalEntityData($shipment)['collectionTime'] ?? null;
-                $newCollectionTime = $shipment->getCollectionTime();
+            $previousCollectionTime = $unitOfWork->getOriginalEntityData($shipment)['collectionTime'] ?? null;
+            $newCollectionTime = $shipment->getCollectionTime();
 
-                if ($previousCollectionTime !== $newCollectionTime && $this->collectionTimeRepository->isSlotFull($shipment->getLocation(), $shipment->getCollectionTime())) {
-                    $this->lock->release();
-                    throw new RaceConditionException();
-                }
+            if ($previousCollectionTime !== $newCollectionTime && $this->collectionTimeRepository->isSlotFull($shipment->getLocation(), $shipment->getCollectionTime())) {
+                $this->lock->release();
+                throw new RaceConditionException();
             }
         }
     }
