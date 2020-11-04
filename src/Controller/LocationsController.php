@@ -44,6 +44,10 @@ final class LocationsController
         // TODO: do this at the SQL layer in a repository, at the same do a proper JOIN...
         $locations = $shippingMethod->getLocations()->filter(function (LocationInterface $p) {
             return $p->isEnabled();
+        })->toArray();
+
+        usort($locations, function ($a, $b) {
+            return $a->getPosition() <> $b->getPosition();
         });
 
         // TODO: add groups to filter unneeded props

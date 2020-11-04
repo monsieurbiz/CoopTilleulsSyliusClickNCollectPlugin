@@ -106,4 +106,12 @@ interface LocationInterface extends ResourceInterface, CodeAwareInterface, Times
     public function setEmailAddress(string $emailAddress): void;
 
     public function getEmailAddress(): ?string;
+
+    /*
+     * Position (custom)
+     */
+    public function getPosition(): ?int;
+
+    public function setPosition(?int $position): void;
+
 }

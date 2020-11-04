@@ -44,6 +44,8 @@ class Location implements LocationInterface
     protected int $throughput = 1;
     protected bool $generatePin = false;
     protected ?string $emailAddress = null;
+    protected ?int $position = null;
+
     /**
      * @var ShippingMethodInterface[]|Collection
      */
@@ -222,5 +224,21 @@ class Location implements LocationInterface
     public function setEmailAddress(?string $emailAddress): void
     {
         $this->emailAddress = $emailAddress;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getPosition(): ?int
+    {
+        return $this->position;
+    }
+
+    /**
+     * @param int|null $position
+     */
+    public function setPosition(?int $position): void
+    {
+        $this->position = $position;
     }
 }

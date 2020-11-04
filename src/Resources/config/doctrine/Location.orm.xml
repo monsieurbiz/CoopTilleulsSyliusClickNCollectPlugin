@@ -37,6 +37,7 @@
         <many-to-many field="shippingMethods" target-entity="Sylius\Component\Shipping\Model\ShippingMethodInterface" mapped-by="locations" />
 
         <field name="emailAddress" column="email_address" nullable="true" />
+        <field name="position" column="position" nullable="true" />
     </mapped-superclass>
 
 </doctrine-mapping>
