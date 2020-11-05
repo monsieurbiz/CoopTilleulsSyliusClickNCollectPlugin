@@ -47,7 +47,7 @@ final class LocationsController
         })->toArray();
 
         usort($locations, function ($a, $b) {
-            return $a->getPosition() <> $b->getPosition();
+            return $a->getPosition() <=> $b->getPosition();
         });
 
         // TODO: add groups to filter unneeded props
