@@ -32,6 +32,7 @@ final class RecurrenceInstanceFinder implements RecurrenceInstanceFinderInterfac
 
     public function __invoke(ClickNCollectShipmentInterface $shipment): Recurrence
     {
+        /** @var $collectionTime \DateTime */
         if (null === $collectionTime = $shipment->getCollectionTime()) {
             throw new \InvalidArgumentException('This shipment has no associated collection time.');
         }
@@ -39,12 +40,13 @@ final class RecurrenceInstanceFinder implements RecurrenceInstanceFinderInterfac
             throw new \InvalidArgumentException('This shipment has no associated location.');
         }
 
-        foreach (($this->computer)($shipment, $location, $collectionTime->sub(new \DateInterval('PT12H')), $collectionTime->add(new \DateInterval('PT12H')), false) as $recurrence) {
-            if ($collectionTime == $recurrence->getStart()) {
-                return $recurrence;
-            }
-        }
+        $rrule = new \Recurr\Rule($location->getRrule());
+        $recurrence = new \Recurr\Recurrence(
+            $collectionTime,
+            (clone $collectionTime)->add($rrule->getStartDate()->diff($rrule->getEndDate()))
+        );
+        unset($rrule);
 
-        throw new \RuntimeException('This collection time isn\'t part of the recurrence.');
+        return $recurrence;
     }
 }
