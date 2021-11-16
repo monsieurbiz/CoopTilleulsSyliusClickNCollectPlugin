@@ -41,6 +41,5 @@
         "sort-packages": true
     },
     "conflict": {
-        "doctrine/inflector": "^1.4"
     }
 }
