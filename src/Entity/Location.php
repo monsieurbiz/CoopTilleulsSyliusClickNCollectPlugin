@@ -15,9 +15,9 @@ namespace CoopTilleuls\SyliusClickNCollectPlugin\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Sylius\Component\Core\Model\ShippingMethodInterface;
 use Sylius\Component\Resource\Model\TimestampableTrait;
 use Sylius\Component\Resource\Model\ToggleableTrait;
-use Sylius\Component\Shipping\Model\ShippingMethodInterface;
 
 /**
  * @inheritdoc
