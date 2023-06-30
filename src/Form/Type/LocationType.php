@@ -78,6 +78,15 @@ final class LocationType extends AbstractResourceType
             ->add('enabled', CheckboxType::class, [
                 'required' => false,
                 'label' => 'coop_tilleuls_click_n_collect.form.location.enabled',
+            ])
+            ->add('emailAddress', TextType::class, [
+                'required' => false,
+                'label' => 'coop_tilleuls_click_n_collect.form.location.email_address',
+            ])
+            ->add('position', IntegerType::class, [
+                'required' => false,
+                'label' => 'coop_tilleuls_click_n_collect.form.location.position',
             ]);
+        ;
     }
 }

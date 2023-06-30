@@ -43,6 +43,9 @@ class Location implements LocationInterface
     protected int $orderPreparationDelay = 0;
     protected int $throughput = 1;
     protected bool $generatePin = false;
+    protected ?string $emailAddress = null;
+    protected ?int $position = null;
+
     /**
      * @var ShippingMethodInterface[]|Collection
      */
@@ -205,5 +208,37 @@ class Location implements LocationInterface
     {
         $this->shippingMethods->removeElement($shippingMethod);
         $shippingMethod->getLocations()->removeElement($this);
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getEmailAddress(): ?string
+    {
+        return $this->emailAddress;
+    }
+
+    /**
+     * @param string|null $emailAddress
+     */
+    public function setEmailAddress(?string $emailAddress): void
+    {
+        $this->emailAddress = $emailAddress;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getPosition(): ?int
+    {
+        return $this->position;
+    }
+
+    /**
+     * @param int|null $position
+     */
+    public function setPosition(?int $position): void
+    {
+        $this->position = $position;
     }
 }
