@@ -1,2 +1,0 @@
-imports:
-    - { resource: "@CoopTilleulsSyliusClickNCollectPlugin/Resources/config/app/config.yml" }
