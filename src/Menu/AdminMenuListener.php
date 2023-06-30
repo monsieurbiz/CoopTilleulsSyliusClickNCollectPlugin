@@ -30,14 +30,16 @@ final class AdminMenuListener
         $sales
             ->addChild('collections', ['route' => 'coop_tilleuls_sylius_click_n_collect_admin_collections'])
             ->setLabel('coop_tilleuls_click_n_collect.menu.admin.main.sales.collections')
-            ->setLabelAttribute('icon', 'box');
+            ->setLabelAttribute('icon', 'box')
+        ;
 
         $configuration = $menu->getChild('configuration');
 
         $configuration
             ->addChild('locations', ['route' => 'coop_tilleuls_click_n_collect_admin_location_index'])
             ->setLabel('coop_tilleuls_click_n_collect.menu.admin.main.configuration.locations')
-            ->setLabelAttribute('icon', 'map marker alternate');
+            ->setLabelAttribute('icon', 'map marker alternate')
+        ;
 
         $keys = array_keys($configuration->getChildren());
         $shippingCategoriesIndex = array_search('shipping_categories', $keys, true);

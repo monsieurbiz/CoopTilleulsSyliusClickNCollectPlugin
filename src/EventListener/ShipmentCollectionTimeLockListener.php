@@ -31,8 +31,11 @@ use Symfony\Component\Lock\LockInterface;
 final class ShipmentCollectionTimeLockListener
 {
     private EntityManagerInterface $entityManager;
+
     private CollectionTimeRepositoryInterface $collectionTimeRepository;
+
     private LockInterface $lock;
+
     private string $shipmentClass;
 
     public function __construct(EntityManagerInterface $entityManager, CollectionTimeRepositoryInterface $collectionTimeRepository, LockFactory $lockFactory)
@@ -60,6 +63,7 @@ final class ShipmentCollectionTimeLockListener
 
             if ($previousCollectionTime !== $newCollectionTime && $this->collectionTimeRepository->isSlotFull($shipment->getLocation(), $shipment->getCollectionTime())) {
                 $this->lock->release();
+
                 throw new RaceConditionException();
             }
         }
@@ -73,6 +77,8 @@ final class ShipmentCollectionTimeLockListener
     }
 
     /**
+     * @param mixed $order
+     *
      * @return ClickNCollectShipmentInterface[]
      */
     private function getShipmentToChecks($order): array

@@ -86,7 +86,7 @@ final class LocationType extends AbstractResourceType
             ->add('position', IntegerType::class, [
                 'required' => false,
                 'label' => 'coop_tilleuls_click_n_collect.form.location.position',
-            ]);
+            ])
         ;
     }
 }

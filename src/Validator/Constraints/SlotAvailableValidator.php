@@ -29,6 +29,7 @@ use Symfony\Component\Validator\Exception\UnexpectedValueException;
 final class SlotAvailableValidator extends ConstraintValidator
 {
     private EntityManagerInterface $entityManager;
+
     private RecurrenceInstanceFinderInterface $recurrenceInstanceFinder;
 
     public function __construct(EntityManagerInterface $entityManager, RecurrenceInstanceFinderInterface $recurrenceInstanceFinder)
@@ -70,7 +71,8 @@ final class SlotAvailableValidator extends ConstraintValidator
             $this->context
                 ->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $collectionTime->format(\DateTime::ATOM))
-                ->addViolation();
+                ->addViolation()
+            ;
         }
     }
 }

@@ -19,11 +19,10 @@ use Sylius\Bundle\CoreBundle\Form\Type\Checkout\SelectShippingType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
@@ -35,11 +34,17 @@ use Twig\Environment;
 final class EditCollectionController
 {
     private ObjectRepository $orderRepository;
+
     private FormFactoryInterface $formFactory;
+
     private ObjectManager $orderManager;
+
     private RouterInterface $router;
+
     private RequestStack $requestStack;
+
     private TranslatorInterface $translator;
+
     private Environment $twig;
 
     public function __construct(ObjectRepository $orderRepository, FormFactoryInterface $formFactory, ObjectManager $orderManager, RouterInterface $router, RequestStack $requestStack, TranslatorInterface $translator, Environment $twig)
@@ -68,7 +73,8 @@ final class EditCollectionController
             $this->requestStack
                 ->getSession()
                 ->getFlashBag()
-                ->add('success', $this->translator->trans('sylius.ui.success'));
+                ->add('success', $this->translator->trans('sylius.ui.success'))
+            ;
 
             return new RedirectResponse($this->router->generate('sylius_admin_order_show', ['id' => $order->getId()]));
         }

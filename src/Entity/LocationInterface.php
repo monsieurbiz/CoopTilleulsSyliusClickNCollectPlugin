@@ -100,18 +100,13 @@ interface LocationInterface extends ResourceInterface, CodeAwareInterface, Times
 
     public function removeShippingMethod(ClickNCollectShippingMethodInterface $shippingMethod): void;
 
-    /*
-     * Email address (custom)
-     */
+    // Email address (custom)
     public function setEmailAddress(string $emailAddress): void;
 
     public function getEmailAddress(): ?string;
 
-    /*
-     * Position (custom)
-     */
+    // Position (custom)
     public function getPosition(): ?int;
 
     public function setPosition(?int $position): void;
-
 }

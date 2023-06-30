@@ -1,11 +1,11 @@
 <?php
 
 /*
- * This file is part of Monsieur Biz' Shipping Slot plugin for Sylius.
+ * This file is part of Les-Tilleuls.coop's Click 'N' Collect project.
  *
- * (c) Monsieur Biz <sylius@monsieurbiz.com>
+ * (c) Les-Tilleuls.coop <contact@les-tilleuls.coop>
  *
- * For the full copyright and license information, please view the LICENSE.txt
+ * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 

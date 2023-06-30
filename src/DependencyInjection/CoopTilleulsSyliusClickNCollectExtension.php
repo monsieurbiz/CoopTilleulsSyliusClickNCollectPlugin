@@ -31,7 +31,7 @@ final class CoopTilleulsSyliusClickNCollectExtension extends AbstractResourceExt
     public function load(array $config, ContainerBuilder $container): void
     {
         $config = $this->processConfiguration($this->getConfiguration([], $container), $config);
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $this->registerResources('coop_tilleuls_click_n_collect', $config['driver'], $config['resources'], $container);
 
         $loader->load('services.xml');

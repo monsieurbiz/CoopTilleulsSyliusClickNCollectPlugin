@@ -30,8 +30,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 final class LocationExampleFactory extends AbstractExampleFactory
 {
     private FactoryInterface $locationFactory;
+
     private Generator $faker;
+
     private OptionsResolver $optionsResolver;
+
     private ShippingMethodRepositoryInterface $shippingMethodRepository;
 
     public function __construct(FactoryInterface $locationFactory, ShippingMethodRepositoryInterface $shippingMethodRepository)
@@ -79,7 +82,8 @@ final class LocationExampleFactory extends AbstractExampleFactory
             })
             ->setDefault('shipping_methods', LazyOption::randomOnes($this->shippingMethodRepository, 1))
             ->setAllowedTypes('shipping_methods', 'array')
-            ->setNormalizer('shipping_methods', LazyOption::findBy($this->shippingMethodRepository, 'code'));
+            ->setNormalizer('shipping_methods', LazyOption::findBy($this->shippingMethodRepository, 'code'))
+        ;
     }
 
     public function create(array $options = [])

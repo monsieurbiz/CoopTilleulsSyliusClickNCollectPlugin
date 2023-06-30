@@ -33,8 +33,11 @@ use Symfony\Component\Routing\RouterInterface;
 final class CollectionsApiController
 {
     private ObjectRepository $locationRepository;
+
     private CollectionTimeRepositoryInterface $collectionTimeRepository;
+
     private RecurrenceInstanceFinderInterface $recurrenceInstanceFinder;
+
     private RouterInterface $router;
 
     public function __construct(ObjectRepository $locationRepository, CollectionTimeRepositoryInterface $collectionTimeRepository, RecurrenceInstanceFinderInterface $recurrenceInstanceFinder, RouterInterface $router)
@@ -69,7 +72,7 @@ final class CollectionsApiController
                 'end' => $recurrence->getEnd()->format(\DateTime::ATOM),
             ];
             if ($order) {
-                $event['title'] = '#'.$shipment->getOrder()->getNumber();
+                $event['title'] = '#' . $shipment->getOrder()->getNumber();
                 $event['url'] = $this->router->generate('sylius_admin_order_show', ['id' => $order->getId()]);
             }
             $events[] = $event;
