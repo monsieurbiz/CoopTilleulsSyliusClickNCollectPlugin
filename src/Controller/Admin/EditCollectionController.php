@@ -23,6 +23,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
@@ -37,17 +38,17 @@ final class EditCollectionController
     private FormFactoryInterface $formFactory;
     private ObjectManager $orderManager;
     private RouterInterface $router;
-    private SessionInterface $session;
+    private RequestStack $requestStack;
     private TranslatorInterface $translator;
     private Environment $twig;
 
-    public function __construct(ObjectRepository $orderRepository, FormFactoryInterface $formFactory, ObjectManager $orderManager, RouterInterface $router, SessionInterface $session, TranslatorInterface $translator, Environment $twig)
+    public function __construct(ObjectRepository $orderRepository, FormFactoryInterface $formFactory, ObjectManager $orderManager, RouterInterface $router, RequestStack $requestStack, TranslatorInterface $translator, Environment $twig)
     {
         $this->orderRepository = $orderRepository;
         $this->formFactory = $formFactory;
         $this->orderManager = $orderManager;
         $this->router = $router;
-        $this->session = $session;
+        $this->requestStack = $requestStack;
         $this->translator = $translator;
         $this->twig = $twig;
     }
@@ -64,7 +65,10 @@ final class EditCollectionController
             $order = $form->getData();
             $this->orderManager->flush();
 
-            $this->session->getFlashBag()->add('success', $this->translator->trans('sylius.ui.success'));
+            $this->requestStack
+                ->getSession()
+                ->getFlashBag()
+                ->add('success', $this->translator->trans('sylius.ui.success'));
 
             return new RedirectResponse($this->router->generate('sylius_admin_order_show', ['id' => $order->getId()]));
         }
