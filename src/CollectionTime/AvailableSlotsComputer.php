@@ -23,7 +23,7 @@ use Recurr\Transformer\ArrayTransformerConfig;
 use Recurr\Transformer\Constraint\BetweenConstraint;
 
 /**
- * {@inheritdoc}
+ * @inheritdoc
  *
  * @author Kévin Dunglas <dunglas@gmail.com>
  */
@@ -37,7 +37,7 @@ final class AvailableSlotsComputer implements AvailableSlotsComputerInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function __invoke(ClickNCollectShipmentInterface $shipment, LocationInterface $location, ?\DateTimeInterface $startDate = null, ?\DateTimeInterface $endDate = null, bool $onlyFuture = true, int $limit = 732): array
     {

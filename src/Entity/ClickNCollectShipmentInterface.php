@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace CoopTilleuls\SyliusClickNCollectPlugin\Entity;
 
-use Sylius\Component\Shipping\Model\ShipmentInterface;
+use Sylius\Component\Core\Model\ShipmentInterface;
 
 /**
  * @author Kévin Dunglas <dunglas@gmail.com>

@@ -17,13 +17,14 @@ use CoopTilleuls\SyliusClickNCollectPlugin\Entity\LocationInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
- * {@inheritdoc}
+ * @inheritdoc
  *
  * @author Kévin Dunglas <dunglas@gmail.com>
  */
 final class CollectionTimeRepository implements CollectionTimeRepositoryInterface
 {
     private EntityManagerInterface $entityManager;
+
     private string $shipmentClass;
 
     public function __construct(EntityManagerInterface $entityManager, string $shipmentClass)
@@ -33,7 +34,7 @@ final class CollectionTimeRepository implements CollectionTimeRepositoryInterfac
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      *
      * @return \DateTimeInterface[]
      */
@@ -59,7 +60,7 @@ final class CollectionTimeRepository implements CollectionTimeRepositoryInterfac
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function isSlotFull(LocationInterface $location, \DateTimeInterface $collectionTime): bool
     {
@@ -79,7 +80,7 @@ final class CollectionTimeRepository implements CollectionTimeRepositoryInterfac
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function findShipments(LocationInterface $location, \DateTimeInterface $start, \DateTimeInterface $end): array
     {

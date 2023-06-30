@@ -17,7 +17,7 @@ use CoopTilleuls\SyliusClickNCollectPlugin\Entity\ClickNCollectShipmentInterface
 use Recurr\Recurrence;
 
 /**
- * {@inheritdoc}
+ * @inheritdoc
  *
  * @author Kévin Dunglas <dunglas@gmail.com>
  */
@@ -32,7 +32,7 @@ final class RecurrenceInstanceFinder implements RecurrenceInstanceFinderInterfac
 
     public function __invoke(ClickNCollectShipmentInterface $shipment): Recurrence
     {
-        /** @var $collectionTime \DateTime */
+        /** @var \DateTime $collectionTime */
         if (null === $collectionTime = $shipment->getCollectionTime()) {
             throw new \InvalidArgumentException('This shipment has no associated collection time.');
         }

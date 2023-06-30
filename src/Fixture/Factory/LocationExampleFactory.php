@@ -19,8 +19,8 @@ use Faker\Generator;
 use Sylius\Bundle\CoreBundle\Fixture\Factory\AbstractExampleFactory;
 use Sylius\Bundle\CoreBundle\Fixture\OptionsResolver\LazyOption;
 use Sylius\Component\Core\Formatter\StringInflector;
+use Sylius\Component\Core\Repository\ShippingMethodRepositoryInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
-use Sylius\Component\Shipping\Repository\ShippingMethodRepositoryInterface;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -30,8 +30,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 final class LocationExampleFactory extends AbstractExampleFactory
 {
     private FactoryInterface $locationFactory;
+
     private Generator $faker;
+
     private OptionsResolver $optionsResolver;
+
     private ShippingMethodRepositoryInterface $shippingMethodRepository;
 
     public function __construct(FactoryInterface $locationFactory, ShippingMethodRepositoryInterface $shippingMethodRepository)
@@ -79,7 +82,8 @@ final class LocationExampleFactory extends AbstractExampleFactory
             })
             ->setDefault('shipping_methods', LazyOption::randomOnes($this->shippingMethodRepository, 1))
             ->setAllowedTypes('shipping_methods', 'array')
-            ->setNormalizer('shipping_methods', LazyOption::findBy($this->shippingMethodRepository, 'code'));
+            ->setNormalizer('shipping_methods', LazyOption::findBy($this->shippingMethodRepository, 'code'))
+        ;
     }
 
     public function create(array $options = [])

@@ -1,0 +1,6 @@
+suites:
+    main:
+        namespace: CoopTilleuls\SyliusClickNCollectPlugin
+        psr4_prefix: CoopTilleuls\SyliusClickNCollectPlugin
+        src_path: src
+        spec_path: tests

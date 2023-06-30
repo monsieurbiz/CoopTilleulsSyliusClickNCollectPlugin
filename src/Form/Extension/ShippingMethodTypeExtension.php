@@ -45,11 +45,13 @@ final class ShippingMethodTypeExtension extends AbstractTypeExtension
                 'expanded' => true,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('p')
-                        ->orderBy('p.name', 'ASC');
+                        ->orderBy('p.name', 'ASC')
+                    ;
                 },
                 'choice_label' => 'name',
                 'label' => 'coop_tilleuls_click_n_collect.form.shipping_method.locations',
-            ]);
+            ])
+        ;
     }
 
     public static function getExtendedTypes(): iterable

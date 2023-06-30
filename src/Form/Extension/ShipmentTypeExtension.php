@@ -74,7 +74,8 @@ final class ShipmentTypeExtension extends AbstractTypeExtension
                         throw new TransformationFailedException('Invalid datetime format', 0, $e);
                     }
                 }))
-            );
+            )
+        ;
     }
 
     public static function getExtendedTypes(): iterable

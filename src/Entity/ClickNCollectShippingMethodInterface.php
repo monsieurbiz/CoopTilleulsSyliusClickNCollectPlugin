@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace CoopTilleuls\SyliusClickNCollectPlugin\Entity;
 
 use Doctrine\Common\Collections\Collection;
-use Sylius\Component\Shipping\Model\ShippingMethodInterface;
+use Sylius\Component\Core\Model\ShippingMethodInterface;
 
 /**
  * @author Kévin Dunglas <dunglas@gmail.com>
