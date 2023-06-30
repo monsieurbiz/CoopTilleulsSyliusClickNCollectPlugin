@@ -8,7 +8,8 @@
         "php": "~7.4|~8.0",
         "sylius/sylius": ">=1.9 <1.13",
         "gedmo/doctrine-extensions": "^2.4.12 || ^3.0",
-        "simshaun/recurr": "^4.0"
+        "simshaun/recurr": "^4.0",
+        "symfony/lock": "^6.1"
     },
     "require-dev": {
         "behat/behat": "^3.6.1",
