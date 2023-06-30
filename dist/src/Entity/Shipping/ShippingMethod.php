@@ -17,6 +17,7 @@ use CoopTilleuls\SyliusClickNCollectPlugin\Entity\ClickNCollectShippingMethod;
 use CoopTilleuls\SyliusClickNCollectPlugin\Entity\ClickNCollectShippingMethodInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Sylius\Component\Core\Model\ShippingMethod as BaseShippingMethod;
+use Sylius\Component\Shipping\Model\ShippingMethodTranslationInterface;
 
 /**
  * @ORM\Entity
@@ -33,5 +34,10 @@ class ShippingMethod extends BaseShippingMethod implements ClickNCollectShipping
         parent::__construct();
 
         $this->initializeShippingMethodLocations();
+    }
+
+    protected function createTranslation(): ShippingMethodTranslationInterface
+    {
+        return new ShippingMethodTranslation();
     }
 }
