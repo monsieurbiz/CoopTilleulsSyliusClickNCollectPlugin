@@ -1,0 +1,19 @@
+{
+  "entrypoints": {
+    "click-n-collect": {
+      "js": [
+        "/bundles/cooptilleulssyliusclickncollectplugin/click-n-collect.33753812.js"
+      ]
+    },
+    "admin-locations": {
+      "js": [
+        "/bundles/cooptilleulssyliusclickncollectplugin/admin-locations.c5ded2af.js"
+      ]
+    },
+    "admin-collections": {
+      "js": [
+        "/bundles/cooptilleulssyliusclickncollectplugin/admin-collections.95ba4923.js"
+      ]
+    }
+  }
+}

@@ -32,7 +32,7 @@
     {{ parent() }}
 
     {% include '@CoopTilleulsSyliusClickNCollectPlugin/fullcalendar/_scripts.html.twig' %}
-    {% include '@SyliusUi/_javascripts.html.twig' with {'path': 'bundles/cooptilleulssyliusclickncollectplugin/click_n_collect.js'} %}
+    <script src="{{ asset('click-n-collect.js', 'click-n-collect.assets.package') }}"></script>
 {% endblock %}
 
 {% block stylesheets %}

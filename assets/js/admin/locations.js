@@ -1,0 +1,235 @@
+import { RRule } from 'rrule';
+
+document.addEventListener('DOMContentLoaded', function() {
+    var DEFAULT_RRULE_STRING = 'FREQ=MINUTELY;INTERVAL=20;BYHOUR=9,10,11,12,13,14,15,16;BYDAY=MO,TU,WE,TH,FR;DTSTART=20200328T080000'
+
+    // Elements
+    var fields = {
+        duration: document.querySelector('.location-rrule-duration-widget'),
+        interval: document.querySelector('.location-rrule-interval-widget'),
+        freq: document.querySelector('.location-rrule-freq-widget'),
+        days: document.querySelectorAll('.location-rrule-days-widget input[type="checkbox"]'),
+        hours: document.querySelector('.location-rrule-hours-widget'),
+        date: document.querySelector('.location-rrule-date-widget'),
+        until: document.querySelector('.location-rrule-until-widget'),
+        expert: document.querySelector('.location-rrule-expert-widget button'),
+        input: document.querySelector('.location-rrule-widget'),
+        rrule: document.getElementById('location_rrule')
+    }
+
+    var locationRRule = new RRule.fromString(DEFAULT_RRULE_STRING)
+    var dtendDate = new Date(Date.UTC(2020, 2, 28, 8, 20))
+
+    function bootstrap() {
+        // Checkbox
+        let checkbox;
+        for (checkbox of fields.days) {
+            if (checkbox.checked) {
+                checkbox.parentNode.classList.add('active')
+            }
+
+            checkbox.addEventListener('change', function() {
+                if (this.checked) {
+                    this.parentNode.classList.add('active')
+                } else {
+                    this.parentNode.classList.remove('active')
+                }
+            })
+        }
+
+        // Dropdown/Select
+        $('.location-rrule-row .ui.dropdown').dropdown()
+
+        // expert
+        fields.expert.addEventListener('click', function() {
+            fields.input.style.display = fields.input.style.display === 'none' ? 'initial' : 'none'
+        })
+    }
+
+    function hydrate() {
+        var searchValue
+        // rrule doesn't support DTEND yet (https://github.com/jakubroztocil/rrule/pull/421)
+        dtendDate = (searchValue = fields.input.value.match(/;DTEND=(:?[^;]*)/))
+            ? new Date(Date.UTC(
+                parseInt(searchValue[1].substring(0, 4), 10),
+                parseInt(searchValue[1].substring(4, 6), 10) - 1,
+                parseInt(searchValue[1].substring(6, 8), 10),
+                parseInt(searchValue[1].substring(9, 11), 10),
+                parseInt(searchValue[1].substring(11, 13), 10),
+                parseInt(searchValue[1].substring(13, 15), 10)
+            ))
+            : undefined
+
+        try {
+            locationRRule = RRule.fromString(fields.input.value.replace(/;?DTEND=[^;]*/, '')) // remove DTEND
+        } catch (e) {
+            console.warn('Error on Location RRule parsing: ', e)
+        }
+
+        var dstartDate = locationRRule.options.dtstart || new Date(Date.UTC)
+
+        fields.interval.value = locationRRule.options.interval
+        // Use semantic-ui method to update text and limit to "HOURLY" and "MINUTELY"
+        $(fields.freq).dropdown('set selected', [RRule.HOURLY, RRule.MINUTELY].indexOf(locationRRule.options.freq) !== -1 ? locationRRule.options.freq : RRule.MINUTELY)
+        fields.days.forEach(function(day, index) {
+            if ((locationRRule.options.byweekday || []).indexOf(index) !== -1) {
+                day.checked = true
+                day.parentNode.classList.add('active')
+            } else {
+                day.checked = false
+                day.parentNode.classList.remove('active')
+            }
+        })
+        $(fields.hours).dropdown('set exactly', (locationRRule.options.byhour || []).map(function(hour) {
+            return hour + 'h'
+        }))
+        fields.date.value = dstartDate.toISOString().slice(0, 10)
+        fields.until.value = locationRRule.options.until ? locationRRule.options.until.toISOString().slice(0, 10) : '';
+        fields.duration.value = dtendDate && 'Invalid Date' !== dtendDate.toString() ? (dtendDate - dstartDate) / 1000 / 60 : undefined
+    }
+
+    function listen() {
+        fields.duration.addEventListener('change', function() {
+            apply({
+                duration: Math.max(1, parseInt(this.value, 10)),
+            })
+        })
+
+        fields.interval.addEventListener('change', function() {
+            apply({
+                interval: Math.max(1, parseInt(this.value, 10)),
+            })
+        })
+
+        fields.freq.addEventListener('change', function() {
+            apply({
+                freq: parseInt(this.value, 10),
+            })
+        })
+
+        fields.days.forEach(function(day, index) {
+            day.addEventListener('change', function() {
+                apply({
+                    byweekday: Array.prototype.slice.call(fields.days)
+                        .map(function(day, index) {
+                            return day.checked ? index : -1
+                        })
+                        .filter(function(index) {
+                            return index !== -1
+                        }),
+                })
+            })
+        })
+
+        fields.hours.addEventListener('change', function() {
+            apply({
+                byhour: Array.prototype.slice.call(this.options)
+                    .map(function(option) {
+                        return option.selected ? parseInt(option.value, 10) : -1
+                    })
+                    .filter(function(index) {
+                        return index !== -1
+                    }),
+            })
+        })
+
+        fields.date.addEventListener('change', function() {
+            var date = new Date(this.value)
+            if ('Invalid Date' === date.toString()) {
+                return
+            }
+
+            apply({
+                dtstart: new Date(
+                    // Advice from RRule library
+                    Date.UTC(
+                        date.getFullYear(),
+                        date.getMonth(),
+                        date.getDate()
+                    )
+                ),
+            })
+        })
+
+        fields.until.addEventListener('change', function() {
+            var date = new Date(this.value);
+            if (date.toString() === 'Invalid Date') {
+                apply({
+                    until: false,
+                })
+                return;
+            }
+
+            apply({
+                until: new Date(
+                    // Advice from RRule library
+                    Date.UTC(
+                        date.getFullYear(),
+                        date.getMonth(),
+                        date.getDate()
+                    )
+                ),
+            })
+        })
+
+        fields.rrule.addEventListener('change', function() {
+            hydrate()
+        })
+    }
+
+    function apply(changes) {
+        var dtstart = changes.dtstart || locationRRule.options.dtstart
+        var until = changes.until || locationRRule.options.until
+        // Force remove until
+        if (changes.until === false) {
+            until = undefined
+        }
+        var duration = changes.duration || (dtendDate - dtstart) / 1000 / 60
+        delete changes.duration
+        var openingHours = Array.prototype.slice.call(changes.byhour || locationRRule.options.byhour || [8])
+            .sort(function(a, b) {
+                return a - b
+            })
+
+        dtstart.setUTCHours(openingHours.length > 0 ? openingHours[0] : 0)
+        dtstart.setUTCMinutes(0)
+        dtstart.setUTCSeconds(0)
+        if (until) {
+            until.setUTCHours(openingHours.length > 0 ? openingHours[openingHours.length - 1] : 0)
+            until.setUTCMinutes(0)
+            until.setUTCSeconds(0)
+        }
+
+        locationRRule = new RRule(Object.assign(
+            {},
+            locationRRule.options,
+            changes,
+            { dtstart, until },
+        ))
+
+        var dtend = new Date(dtstart.getTime() + duration * 1000 * 60)
+        dtendDate = dtend
+
+        fields.input.value = locationRRule.toString()
+                // fix RRule format
+                .replace(/Z\s*RRULE:/, ';')
+                .replace(/:/, '=')
+                .replace(/;?WKST=MO/, '')
+                .replace(/;?BYMINUTE=0/, '')
+                .replace(/;?BYSECOND=0/, '')
+            + [
+                ';DTEND=',
+                dtend.getUTCFullYear().toString().padStart(4, '0'),
+                (dtend.getUTCMonth() + 1).toString().padStart(2, '0'),
+                dtend.getUTCDate().toString().padStart(2, '0'),
+                'T',
+                dtend.getUTCHours().toString().padStart(2, '0'),
+                dtend.getUTCMinutes().toString().padStart(2, '0'),
+                dtend.getUTCSeconds().toString().padStart(2, '0')
+            ].join('')
+    }
+
+    bootstrap()
+    hydrate()
+    listen()
+}, false);
