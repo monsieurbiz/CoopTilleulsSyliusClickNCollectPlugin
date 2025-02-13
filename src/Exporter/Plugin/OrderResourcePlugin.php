@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace CoopTilleuls\SyliusClickNCollectPlugin\Exporter\Plugin;
 
 use CoopTilleuls\SyliusClickNCollectPlugin\Entity\ClickNCollectShipmentInterface;
+use DateTimeInterface;
 use FriendsOfSylius\SyliusImportExportPlugin\Exporter\Plugin\OrderResourcePlugin as BaseOrderResourcePlugin;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\Shipment;
@@ -28,6 +29,9 @@ final class OrderResourcePlugin extends BaseOrderResourcePlugin
         }
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     private function addClickNCollect(OrderInterface $resource): void
     {
         $resource->getShipments()->forAll(function ($key, Shipment $shipment) use ($resource): void {
@@ -40,8 +44,11 @@ final class OrderResourcePlugin extends BaseOrderResourcePlugin
                 $this->addDataForResource($resource, 'ClickNCollect_Location_City', $location->getCity());
                 $this->addDataForResource($resource, 'ClickNCollect_Location_PostCode', $location->getPostcode());
                 $this->addDataForResource($resource, 'ClickNCollect_Pin', $shipment->getPin());
-                $this->addDataForResource($resource, 'ClickNCollect_CollectionTime',
-                    $shipment->getCollectionTime() instanceof \DateTimeInterface ? $shipment->getCollectionTime()->format(\DateTimeInterface::ISO8601) : null);
+                $this->addDataForResource(
+                    $resource,
+                    'ClickNCollect_CollectionTime',
+                    $shipment->getCollectionTime() instanceof DateTimeInterface ? $shipment->getCollectionTime()->format(DateTimeInterface::ISO8601) : null
+                );
             }
         });
     }

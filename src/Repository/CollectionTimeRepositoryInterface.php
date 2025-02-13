@@ -15,6 +15,7 @@ namespace CoopTilleuls\SyliusClickNCollectPlugin\Repository;
 
 use CoopTilleuls\SyliusClickNCollectPlugin\Entity\ClickNCollectShipmentInterface;
 use CoopTilleuls\SyliusClickNCollectPlugin\Entity\LocationInterface;
+use DateTimeInterface;
 
 /**
  * Finds collection times relates to shipments.
@@ -26,19 +27,19 @@ interface CollectionTimeRepositoryInterface
     /**
      * Finds slot already full according to the Location throughput.
      *
-     * @return \DateTimeInterface[]
+     * @return DateTimeInterface[]
      */
-    public function findFullSlots(LocationInterface $location, \DateTimeInterface $start, \DateTimeInterface $end): array;
+    public function findFullSlots(LocationInterface $location, DateTimeInterface $start, DateTimeInterface $end): array;
 
     /**
      * Checks if a time slot is already full according to the Location throughput.
      */
-    public function isSlotFull(LocationInterface $location, \DateTimeInterface $collectionTime): bool;
+    public function isSlotFull(LocationInterface $location, DateTimeInterface $collectionTime): bool;
 
     /**
      * Finds all shipments with a collection time between the provided range.
      *
      * @return ClickNCollectShipmentInterface[]
      */
-    public function findShipments(LocationInterface $location, \DateTimeInterface $start, \DateTimeInterface $end): array;
+    public function findShipments(LocationInterface $location, DateTimeInterface $start, DateTimeInterface $end): array;
 }

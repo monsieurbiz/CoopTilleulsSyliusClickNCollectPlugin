@@ -19,6 +19,14 @@ By allowing **contactless** pick up and preventing queues, **Sylius Click 'N' Co
 
 ![CI](https://github.com/coopTilleuls/CoopTilleulsSyliusClickNCollectPlugin/workflows/CI/badge.svg)
 
+## Compatibility
+
+| Sylius Version | PHP Version     |
+|----------------|-----------------|
+| 1.12           | 8.1 - 8.2 - 8.3 |
+| 1.13           | 8.1 - 8.2 - 8.3 |
+| 1.14           | 8.1 - 8.2 - 8.3 |
+
 ## How Does It Work?
 
 [![Screencast](https://i.imgur.com/yOU3sw7.png)](https://www.youtube.com/watch?v=bQ9_vQJf-2I)

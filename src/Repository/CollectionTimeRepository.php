@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace CoopTilleuls\SyliusClickNCollectPlugin\Repository;
 
 use CoopTilleuls\SyliusClickNCollectPlugin\Entity\LocationInterface;
+use DateTimeInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
@@ -36,11 +37,12 @@ final class CollectionTimeRepository implements CollectionTimeRepositoryInterfac
     /**
      * @inheritdoc
      *
-     * @return \DateTimeInterface[]
+     * @return DateTimeInterface[]
      */
-    public function findFullSlots(LocationInterface $location, \DateTimeInterface $start, \DateTimeInterface $end): array
+    public function findFullSlots(LocationInterface $location, DateTimeInterface $start, DateTimeInterface $end): array
     {
-        $query = $this->entityManager->createQuery(<<<DQL
+        $query = $this->entityManager->createQuery(
+            <<<DQL
             SELECT s.collectionTime AS collection_time
             FROM {$this->shipmentClass} s
             WHERE s.location = :location
@@ -62,9 +64,10 @@ final class CollectionTimeRepository implements CollectionTimeRepositoryInterfac
     /**
      * @inheritdoc
      */
-    public function isSlotFull(LocationInterface $location, \DateTimeInterface $collectionTime): bool
+    public function isSlotFull(LocationInterface $location, DateTimeInterface $collectionTime): bool
     {
-        $query = $this->entityManager->createQuery(<<<DQL
+        $query = $this->entityManager->createQuery(
+            <<<DQL
             SELECT COUNT(s.collectionTime) AS c
             FROM {$this->shipmentClass} s
             WHERE s.location = :location
@@ -82,9 +85,10 @@ final class CollectionTimeRepository implements CollectionTimeRepositoryInterfac
     /**
      * @inheritdoc
      */
-    public function findShipments(LocationInterface $location, \DateTimeInterface $start, \DateTimeInterface $end): array
+    public function findShipments(LocationInterface $location, DateTimeInterface $start, DateTimeInterface $end): array
     {
-        return $this->entityManager->createQuery(<<<DQL
+        return $this->entityManager->createQuery(
+            <<<DQL
             SELECT s
             FROM {$this->shipmentClass} s
             WHERE s.state = 'ready'

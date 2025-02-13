@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace CoopTilleuls\SyliusClickNCollectPlugin\DependencyInjection;
 
+use InvalidArgumentException;
 use Sylius\Bundle\ResourceBundle\DependencyInjection\Extension\AbstractResourceExtension;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -26,7 +27,7 @@ final class CoopTilleulsSyliusClickNCollectExtension extends AbstractResourceExt
     /**
      * @param array<mixed> $config
      *
-     * @throws \InvalidArgumentException When provided tag is not defined in this extension
+     * @throws InvalidArgumentException When provided tag is not defined in this extension
      */
     public function load(array $config, ContainerBuilder $container): void
     {

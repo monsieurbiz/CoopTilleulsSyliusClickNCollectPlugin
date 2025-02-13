@@ -15,7 +15,10 @@ namespace CoopTilleuls\SyliusClickNCollectPlugin\Controller\Admin;
 
 use CoopTilleuls\SyliusClickNCollectPlugin\CollectionTime\RecurrenceInstanceFinderInterface;
 use CoopTilleuls\SyliusClickNCollectPlugin\Repository\CollectionTimeRepositoryInterface;
+use DateTime;
+use DateTimeImmutable;
 use Doctrine\Persistence\ObjectRepository;
+use Exception;
 use Sylius\Component\Core\Model\ShipmentInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,17 +51,20 @@ final class CollectionsApiController
         $this->router = $router;
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     */
     public function __invoke(Request $request, string $locationCode): JsonResponse
     {
         try {
-            $startDateTime = new \DateTimeImmutable($request->query->get('start', 'now'));
-            $endDateTime = new \DateTimeImmutable($request->query->get('end', '+1 week'));
-        } catch (\Exception $e) {
+            $startDateTime = new DateTimeImmutable($request->query->get('start', 'now'));
+            $endDateTime = new DateTimeImmutable($request->query->get('end', '+1 week'));
+        } catch (Exception $e) {
             throw new BadRequestHttpException('Invalid date format', $e);
         }
 
         if (!$location = $this->locationRepository->findOneBy(['code' => $locationCode])) {
-            throw new NotFoundHttpException(sprintf('The location "%s" doesn\'t exist.', $locationCode));
+            throw new NotFoundHttpException(\sprintf('The location "%s" doesn\'t exist.', $locationCode));
         }
 
         $events = [];
@@ -67,9 +73,9 @@ final class CollectionsApiController
 
             $order = $shipment instanceof ShipmentInterface ? $shipment->getOrder() : null;
             $event = [
-                'id' => $id = $recurrence->getStart()->format(\DateTime::ATOM),
+                'id' => $id = $recurrence->getStart()->format(DateTime::ATOM),
                 'start' => $id,
-                'end' => $recurrence->getEnd()->format(\DateTime::ATOM),
+                'end' => $recurrence->getEnd()->format(DateTime::ATOM),
             ];
             if ($order) {
                 $event['title'] = '#' . $shipment->getOrder()->getNumber();

@@ -1,0 +1,246 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Call to an undefined method DateTimeInterface\\:\\:add\\(\\)\\.$#"
+			count: 1
+			path: src/CollectionTime/AvailableSlotsComputer.php
+
+		-
+			message: "#^Parameter \\#1 \\$targetObject of method DateTimeInterface\\:\\:diff\\(\\) expects DateTimeInterface, DateTimeInterface\\|null given\\.$#"
+			count: 1
+			path: src/CollectionTime/AvailableSlotsComputer.php
+
+		-
+			message: "#^Parameter \\#1 \\$targetObject of method DateTimeInterface\\:\\:diff\\(\\) expects DateTimeInterface, DateTimeInterface\\|null given\\.$#"
+			count: 1
+			path: src/CollectionTime/RecurrenceInstanceFinder.php
+
+		-
+			message: "#^Property CoopTilleuls\\\\SyliusClickNCollectPlugin\\\\CollectionTime\\\\RecurrenceInstanceFinder\\:\\:\\$computer is never read, only written\\.$#"
+			count: 1
+			path: src/CollectionTime/RecurrenceInstanceFinder.php
+
+		-
+			message: "#^Variable \\$collectionTime in PHPDoc tag @var does not exist\\.$#"
+			count: 1
+			path: src/CollectionTime/RecurrenceInstanceFinder.php
+
+		-
+			message: "#^Cannot call method getNumber\\(\\) on Sylius\\\\Component\\\\Core\\\\Model\\\\OrderInterface\\|null\\.$#"
+			count: 1
+			path: src/Controller/Admin/CollectionsApiController.php
+
+		-
+			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
+			count: 1
+			path: src/Controller/Admin/CollectionsApiController.php
+
+		-
+			message: "#^Parameter \\#1 \\$datetime of class DateTimeImmutable constructor expects string, bool\\|float\\|int\\|string\\|null given\\.$#"
+			count: 2
+			path: src/Controller/Admin/CollectionsApiController.php
+
+		-
+			message: "#^Parameter \\#1 \\$location of method CoopTilleuls\\\\SyliusClickNCollectPlugin\\\\Repository\\\\CollectionTimeRepositoryInterface\\:\\:findShipments\\(\\) expects CoopTilleuls\\\\SyliusClickNCollectPlugin\\\\Entity\\\\LocationInterface, object given\\.$#"
+			count: 1
+			path: src/Controller/Admin/CollectionsApiController.php
+
+		-
+			message: "#^Call to an undefined method Symfony\\\\Component\\\\HttpFoundation\\\\Session\\\\SessionInterface\\:\\:getFlashBag\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/Admin/EditCollectionController.php
+
+		-
+			message: "#^Parameter \\#2 \\$previous of class Symfony\\\\Component\\\\HttpKernel\\\\Exception\\\\NotFoundHttpException constructor expects Throwable\\|null, string given\\.$#"
+			count: 1
+			path: src/Controller/Admin/EditCollectionController.php
+
+		-
+			message: "#^Parameter \\#1 \\$datetime of class DateTimeImmutable constructor expects string, bool\\|float\\|int\\|string given\\.$#"
+			count: 1
+			path: src/Controller/CollectionTimesController.php
+
+		-
+			message: "#^Parameter \\#1 \\$datetime of class DateTimeImmutable constructor expects string, bool\\|float\\|int\\|string\\|null given\\.$#"
+			count: 1
+			path: src/Controller/CollectionTimesController.php
+
+		-
+			message: "#^Parameter \\#1 \\$shipment of callable CoopTilleuls\\\\SyliusClickNCollectPlugin\\\\CollectionTime\\\\AvailableSlotsComputerInterface expects CoopTilleuls\\\\SyliusClickNCollectPlugin\\\\Entity\\\\ClickNCollectShipmentInterface, object given\\.$#"
+			count: 1
+			path: src/Controller/CollectionTimesController.php
+
+		-
+			message: "#^Parameter \\#2 \\$location of callable CoopTilleuls\\\\SyliusClickNCollectPlugin\\\\CollectionTime\\\\AvailableSlotsComputerInterface expects CoopTilleuls\\\\SyliusClickNCollectPlugin\\\\Entity\\\\LocationInterface, object given\\.$#"
+			count: 1
+			path: src/Controller/CollectionTimesController.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getLocations\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/LocationsController.php
+
+		-
+			message: "#^Cannot call method arrayNode\\(\\) on Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\NodeParentInterface\\|null\\.$#"
+			count: 1
+			path: src/DependencyInjection/Configuration.php
+
+		-
+			message: "#^Cannot call method end\\(\\) on Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\NodeParentInterface\\|null\\.$#"
+			count: 1
+			path: src/DependencyInjection/Configuration.php
+
+		-
+			message: "#^Method CoopTilleuls\\\\SyliusClickNCollectPlugin\\\\Entity\\\\ClickNCollectShipmentInterface\\:\\:setCollectionTime\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Entity/ClickNCollectShipmentInterface.php
+
+		-
+			message: "#^Method CoopTilleuls\\\\SyliusClickNCollectPlugin\\\\Entity\\\\Location\\:\\:getId\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Entity/Location.php
+
+		-
+			message: "#^Method CoopTilleuls\\\\SyliusClickNCollectPlugin\\\\Entity\\\\Location\\:\\:getShippingMethods\\(\\) should return Doctrine\\\\Common\\\\Collections\\\\Collection&iterable\\<CoopTilleuls\\\\SyliusClickNCollectPlugin\\\\Entity\\\\ClickNCollectShippingMethodInterface\\> but returns Doctrine\\\\Common\\\\Collections\\\\Collection&iterable\\<Sylius\\\\Component\\\\Core\\\\Model\\\\ShippingMethodInterface\\>\\.$#"
+			count: 1
+			path: src/Entity/Location.php
+
+		-
+			message: "#^Method CoopTilleuls\\\\SyliusClickNCollectPlugin\\\\Entity\\\\Location\\:\\:setId\\(\\) has parameter \\$id with no type specified\\.$#"
+			count: 1
+			path: src/Entity/Location.php
+
+		-
+			message: "#^Method CoopTilleuls\\\\SyliusClickNCollectPlugin\\\\Entity\\\\LocationInterface\\:\\:getId\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Entity/LocationInterface.php
+
+		-
+			message: "#^Method CoopTilleuls\\\\SyliusClickNCollectPlugin\\\\Entity\\\\LocationInterface\\:\\:setId\\(\\) has parameter \\$id with no type specified\\.$#"
+			count: 1
+			path: src/Entity/LocationInterface.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Order\\\\Model\\\\OrderInterface\\:\\:getShipments\\(\\)\\.$#"
+			count: 1
+			path: src/EventListener/ShipmentCollectionTimeLockListener.php
+
+		-
+			message: "#^Parameter \\#1 \\$location of method CoopTilleuls\\\\SyliusClickNCollectPlugin\\\\Repository\\\\CollectionTimeRepositoryInterface\\:\\:isSlotFull\\(\\) expects CoopTilleuls\\\\SyliusClickNCollectPlugin\\\\Entity\\\\LocationInterface, CoopTilleuls\\\\SyliusClickNCollectPlugin\\\\Entity\\\\LocationInterface\\|null given\\.$#"
+			count: 1
+			path: src/EventListener/ShipmentCollectionTimeLockListener.php
+
+		-
+			message: "#^Parameter \\#2 \\$collectionTime of method CoopTilleuls\\\\SyliusClickNCollectPlugin\\\\Repository\\\\CollectionTimeRepositoryInterface\\:\\:isSlotFull\\(\\) expects DateTimeInterface, DateTimeInterface\\|null given\\.$#"
+			count: 1
+			path: src/EventListener/ShipmentCollectionTimeLockListener.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\ShipmentInterface\\:\\:setLocation\\(\\)\\.$#"
+			count: 1
+			path: src/Fixture/Factory/OrderExampleFactory.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Shipping\\\\Model\\\\ShippingMethodInterface\\:\\:getLocations\\(\\)\\.$#"
+			count: 1
+			path: src/Fixture/Factory/OrderExampleFactory.php
+
+		-
+			message: "#^Parameter \\#1 \\$interval of method DateTimeImmutable\\:\\:add\\(\\) expects DateInterval, string given\\.$#"
+			count: 1
+			path: src/Fixture/Factory/OrderExampleFactory.php
+
+		-
+			message: "#^Parameter \\#1 \\$interval of method DateTimeImmutable\\:\\:sub\\(\\) expects DateInterval, string given\\.$#"
+			count: 1
+			path: src/Fixture/Factory/OrderExampleFactory.php
+
+		-
+			message: "#^Parameter \\#1 \\$object of static method DateTimeImmutable\\:\\:createFromMutable\\(\\) expects DateTime, DateTimeInterface given\\.$#"
+			count: 2
+			path: src/Fixture/Factory/OrderExampleFactory.php
+
+		-
+			message: "#^Parameter \\#1 \\$orderFactory of method Sylius\\\\Bundle\\\\CoreBundle\\\\Fixture\\\\Factory\\\\OrderExampleFactory\\:\\:__construct\\(\\) expects Sylius\\\\Resource\\\\Factory\\\\FactoryInterface\\<Sylius\\\\Component\\\\Core\\\\Model\\\\OrderInterface\\>, Sylius\\\\Component\\\\Resource\\\\Factory\\\\FactoryInterface given\\.$#"
+			count: 1
+			path: src/Fixture/Factory/OrderExampleFactory.php
+
+		-
+			message: "#^Parameter \\#1 \\$shipment of method CoopTilleuls\\\\SyliusClickNCollectPlugin\\\\Fixture\\\\Factory\\\\OrderExampleFactory\\:\\:setCollectionTime\\(\\) expects CoopTilleuls\\\\SyliusClickNCollectPlugin\\\\Entity\\\\ClickNCollectShipmentInterface, Sylius\\\\Component\\\\Core\\\\Model\\\\ShipmentInterface given\\.$#"
+			count: 1
+			path: src/Fixture/Factory/OrderExampleFactory.php
+
+		-
+			message: "#^Parameter \\#11 \\$addressFactory of method Sylius\\\\Bundle\\\\CoreBundle\\\\Fixture\\\\Factory\\\\OrderExampleFactory\\:\\:__construct\\(\\) expects Sylius\\\\Resource\\\\Factory\\\\FactoryInterface\\<Sylius\\\\Component\\\\Core\\\\Model\\\\AddressInterface\\>, Sylius\\\\Component\\\\Resource\\\\Factory\\\\FactoryInterface given\\.$#"
+			count: 1
+			path: src/Fixture/Factory/OrderExampleFactory.php
+
+		-
+			message: "#^Parameter \\#2 \\$location of callable CoopTilleuls\\\\SyliusClickNCollectPlugin\\\\CollectionTime\\\\AvailableSlotsComputerInterface expects CoopTilleuls\\\\SyliusClickNCollectPlugin\\\\Entity\\\\LocationInterface, CoopTilleuls\\\\SyliusClickNCollectPlugin\\\\Entity\\\\LocationInterface\\|null given\\.$#"
+			count: 1
+			path: src/Fixture/Factory/OrderExampleFactory.php
+
+		-
+			message: "#^Parameter \\#2 \\$orderItemFactory of method Sylius\\\\Bundle\\\\CoreBundle\\\\Fixture\\\\Factory\\\\OrderExampleFactory\\:\\:__construct\\(\\) expects Sylius\\\\Resource\\\\Factory\\\\FactoryInterface\\<Sylius\\\\Component\\\\Core\\\\Model\\\\OrderItemInterface\\>, Sylius\\\\Component\\\\Resource\\\\Factory\\\\FactoryInterface given\\.$#"
+			count: 1
+			path: src/Fixture/Factory/OrderExampleFactory.php
+
+		-
+			message: "#^Parameter \\#5 \\$channelRepository of method Sylius\\\\Bundle\\\\CoreBundle\\\\Fixture\\\\Factory\\\\OrderExampleFactory\\:\\:__construct\\(\\) expects Sylius\\\\Resource\\\\Doctrine\\\\Persistence\\\\RepositoryInterface\\<Sylius\\\\Component\\\\Core\\\\Model\\\\ChannelInterface\\>, Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface given\\.$#"
+			count: 1
+			path: src/Fixture/Factory/OrderExampleFactory.php
+
+		-
+			message: "#^Parameter \\#6 \\$customerRepository of method Sylius\\\\Bundle\\\\CoreBundle\\\\Fixture\\\\Factory\\\\OrderExampleFactory\\:\\:__construct\\(\\) expects Sylius\\\\Resource\\\\Doctrine\\\\Persistence\\\\RepositoryInterface\\<Sylius\\\\Component\\\\Core\\\\Model\\\\CustomerInterface\\>, Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface given\\.$#"
+			count: 1
+			path: src/Fixture/Factory/OrderExampleFactory.php
+
+		-
+			message: "#^Parameter \\#8 \\$countryRepository of method Sylius\\\\Bundle\\\\CoreBundle\\\\Fixture\\\\Factory\\\\OrderExampleFactory\\:\\:__construct\\(\\) expects Sylius\\\\Resource\\\\Doctrine\\\\Persistence\\\\RepositoryInterface\\<Sylius\\\\Component\\\\Addressing\\\\Model\\\\CountryInterface\\>, Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface given\\.$#"
+			count: 1
+			path: src/Fixture/Factory/OrderExampleFactory.php
+
+		-
+			message: "#^Cannot call method scalarNode\\(\\) on Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\NodeParentInterface\\|null\\.$#"
+			count: 1
+			path: src/Fixture/LocationFixture.php
+
+		-
+			message: "#^Anonymous function should return CoopTilleuls\\\\SyliusClickNCollectPlugin\\\\Entity\\\\LocationInterface\\|null but returns object\\.$#"
+			count: 1
+			path: src/Form/Extension/ShipmentTypeExtension.php
+
+		-
+			message: "#^Property CoopTilleuls\\\\SyliusClickNCollectPlugin\\\\Form\\\\Extension\\\\ShippingMethodTypeExtension\\:\\:\\$locationDataClass \\(class\\-string\\<CoopTilleuls\\\\SyliusClickNCollectPlugin\\\\Entity\\\\LocationInterface\\>\\) does not accept string\\.$#"
+			count: 1
+			path: src/Form/Extension/ShippingMethodTypeExtension.php
+
+		-
+			message: "#^Cannot call method addChild\\(\\) on Knp\\\\Menu\\\\ItemInterface\\|null\\.$#"
+			count: 2
+			path: src/Menu/AdminMenuListener.php
+
+		-
+			message: "#^Cannot call method getChildren\\(\\) on Knp\\\\Menu\\\\ItemInterface\\|null\\.$#"
+			count: 1
+			path: src/Menu/AdminMenuListener.php
+
+		-
+			message: "#^Cannot call method reorderChildren\\(\\) on Knp\\\\Menu\\\\ItemInterface\\|null\\.$#"
+			count: 1
+			path: src/Menu/AdminMenuListener.php
+
+		-
+			message: "#^Parameter \\#2 \\$offset of function array_slice expects int, int\\|false given\\.$#"
+			count: 1
+			path: src/Menu/AdminMenuListener.php
+
+		-
+			message: "#^Access to an undefined property CoopTilleuls\\\\SyliusClickNCollectPlugin\\\\Validator\\\\Constraints\\\\SlotAvailableInterface&Symfony\\\\Component\\\\Validator\\\\Constraint\\:\\:\\$message\\.$#"
+			count: 1
+			path: src/Validator/Constraints/SlotAvailableValidator.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Shipping\\\\Model\\\\ShippingMethodInterface\\:\\:isClickNCollect\\(\\)\\.$#"
+			count: 1
+			path: src/Validator/Constraints/SlotAvailableValidator.php

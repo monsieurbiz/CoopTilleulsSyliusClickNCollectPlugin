@@ -35,6 +35,9 @@ final class ShippingMethodTypeExtension extends AbstractTypeExtension
         $this->locationDataClass = $locationDataClass;
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder

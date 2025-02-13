@@ -31,6 +31,9 @@ trait ClickNCollectShippingMethod
      *     inverseJoinColumns={@ORM\JoinColumn(name="location_id", onDelete="cascade")}
      * )
      */
+    #[ORM\ManyToMany(targetEntity: LocationInterface::class, inversedBy: 'shippingMethods')]
+    #[ORM\JoinTable(name: 'coop_tilleuls_click_n_collect_shipping_method_location')]
+    #[ORM\InverseJoinColumn(name: 'location_id', onDelete: 'cascade')]
     protected $locations;
 
     public function __construct()

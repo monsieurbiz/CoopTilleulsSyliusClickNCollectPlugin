@@ -36,8 +36,6 @@ final class ShipmentCollectionTimeLockListener
 
     private LockInterface $lock;
 
-    private string $shipmentClass;
-
     public function __construct(EntityManagerInterface $entityManager, CollectionTimeRepositoryInterface $collectionTimeRepository, LockFactory $lockFactory)
     {
         $this->entityManager = $entityManager;
@@ -47,6 +45,8 @@ final class ShipmentCollectionTimeLockListener
 
     /**
      * @throws RaceConditionException
+     *
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      */
     public function onPreSelectShipping(ResourceControllerEvent $event): void
     {
@@ -80,6 +80,8 @@ final class ShipmentCollectionTimeLockListener
      * @param mixed $order
      *
      * @return ClickNCollectShipmentInterface[]
+     *
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      */
     private function getShipmentToChecks($order): array
     {

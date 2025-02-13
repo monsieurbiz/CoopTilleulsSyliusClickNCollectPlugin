@@ -14,7 +14,10 @@ declare(strict_types=1);
 namespace CoopTilleuls\SyliusClickNCollectPlugin\Controller;
 
 use CoopTilleuls\SyliusClickNCollectPlugin\CollectionTime\AvailableSlotsComputerInterface;
+use DateTime;
+use DateTimeImmutable;
 use Doctrine\Persistence\ObjectRepository;
+use Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -42,34 +45,37 @@ final class CollectionTimesController
         $this->availableSlotsComputer = $availableSlotsComputer;
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     */
     public function __invoke(Request $request, int $shipmentId, string $locationCode): JsonResponse
     {
         if (!$shipment = $this->shipmentRepository->find($shipmentId)) {
-            throw new NotFoundHttpException(sprintf('The shipment "%d" doesn\'t exist.', $shipmentId));
+            throw new NotFoundHttpException(\sprintf('The shipment "%d" doesn\'t exist.', $shipmentId));
         }
 
         if (!$location = $this->locationRepository->findOneBy(['code' => $locationCode])) {
-            throw new NotFoundHttpException(sprintf('The location "%s" doesn\'t exist.', $locationCode));
+            throw new NotFoundHttpException(\sprintf('The location "%s" doesn\'t exist.', $locationCode));
         }
 
         $start = $request->query->get('start');
         $end = $request->query->get('end');
 
         try {
-            $startDateTime = null === $start ? null : new \DateTimeImmutable($start);
-            $endDateTime = null === $start ? null : new \DateTimeImmutable($end);
+            $startDateTime = null === $start ? null : new DateTimeImmutable($start);
+            $endDateTime = null === $start ? null : new DateTimeImmutable($end);
 
             $recurrences = ($this->availableSlotsComputer)($shipment, $location, $startDateTime, $endDateTime);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw new BadRequestHttpException('Invalid date range (bad format, in the past or longer than 1 month)', $e);
         }
 
         $events = [];
         foreach ($recurrences as $recurrence) {
             $events[] = [
-                'id' => $id = $recurrence->getStart()->format(\DateTime::ATOM),
+                'id' => $id = $recurrence->getStart()->format(DateTime::ATOM),
                 'start' => $id,
-                'end' => $recurrence->getEnd()->format(\DateTime::ATOM),
+                'end' => $recurrence->getEnd()->format(DateTime::ATOM),
             ];
         }
 

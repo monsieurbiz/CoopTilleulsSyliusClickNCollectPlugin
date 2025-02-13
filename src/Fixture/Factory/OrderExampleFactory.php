@@ -15,6 +15,8 @@ namespace CoopTilleuls\SyliusClickNCollectPlugin\Fixture\Factory;
 
 use CoopTilleuls\SyliusClickNCollectPlugin\CollectionTime\AvailableSlotsComputerInterface;
 use CoopTilleuls\SyliusClickNCollectPlugin\Entity\ClickNCollectShipmentInterface;
+use DateTimeImmutable;
+use DateTimeInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use SM\Factory\FactoryInterface as StateMachineFactoryInterface;
 use Sylius\Bundle\CoreBundle\Fixture\Factory\OrderExampleFactory as BaseOrderExampleFactory;
@@ -35,13 +37,16 @@ class OrderExampleFactory extends BaseOrderExampleFactory
 {
     private AvailableSlotsComputerInterface $availableSlotsComputer;
 
+    /**
+     * @SuppressWarnings(PHPMD.ExcessiveParameterList)
+     */
     public function __construct(FactoryInterface $orderFactory, FactoryInterface $orderItemFactory, OrderItemQuantityModifierInterface $orderItemQuantityModifier, EntityManagerInterface $orderManager, RepositoryInterface $channelRepository, RepositoryInterface $customerRepository, ProductRepositoryInterface $productRepository, RepositoryInterface $countryRepository, PaymentMethodRepositoryInterface $paymentMethodRepository, ShippingMethodRepositoryInterface $shippingMethodRepository, FactoryInterface $addressFactory, StateMachineFactoryInterface $stateMachineFactory, OrderShippingMethodSelectionRequirementCheckerInterface $orderShippingMethodSelectionRequirementChecker, OrderPaymentMethodSelectionRequirementCheckerInterface $orderPaymentMethodSelectionRequirementChecker, AvailableSlotsComputerInterface $availableSlotsComputer)
     {
         parent::__construct($orderFactory, $orderItemFactory, $orderItemQuantityModifier, $orderManager, $channelRepository, $customerRepository, $productRepository, $countryRepository, $paymentMethodRepository, $shippingMethodRepository, $addressFactory, $stateMachineFactory, $orderShippingMethodSelectionRequirementChecker, $orderPaymentMethodSelectionRequirementChecker);
         $this->availableSlotsComputer = $availableSlotsComputer;
     }
 
-    protected function selectShipping(OrderInterface $order, \DateTimeInterface $createdAt): void
+    protected function selectShipping(OrderInterface $order, DateTimeInterface $createdAt): void
     {
         parent::selectShipping($order, $createdAt);
 
@@ -59,18 +64,17 @@ class OrderExampleFactory extends BaseOrderExampleFactory
 
     private function setCollectionTime(ClickNCollectShipmentInterface $shipment): void
     {
+        $startDate = null;
+        $endDate = null;
         if ($shippedAt = $shipment->getShippedAt()) {
-            $shippedAtImmutable = \DateTimeImmutable::createFromMutable($shipment);
+            $shippedAtImmutable = DateTimeImmutable::createFromMutable($shippedAt);
             $startDate = $shippedAtImmutable->sub('-3 days');
             $endDate = $shippedAtImmutable->add('+1 days');
-        } else {
-            $startDate = null;
-            $endDate = null;
         }
 
         $recurrences = ($this->availableSlotsComputer)($shipment, $shipment->getLocation(), $startDate, $endDate, false, 10);
-        if (null !== $r = array_pop($recurrences)) {
-            $shipment->setCollectionTime(\DateTimeImmutable::createFromMutable($r->getStart()));
+        if (null !== $recurrence = array_pop($recurrences)) {
+            $shipment->setCollectionTime(DateTimeImmutable::createFromMutable($recurrence->getStart()));
         }
     }
 }

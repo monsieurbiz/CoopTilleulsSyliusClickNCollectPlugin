@@ -26,6 +26,9 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 final class LocationType extends AbstractResourceType
 {
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
