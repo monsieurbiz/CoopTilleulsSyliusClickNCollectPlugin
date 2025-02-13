@@ -39,7 +39,7 @@ final class LocationsController
     public function __invoke(string $shippingMethodCode): JsonResponse
     {
         if (!$shippingMethod = $this->repository->findOneBy(['code' => $shippingMethodCode])) {
-            throw new NotFoundHttpException(sprintf('The shipping method "%s" doesn\'t exist.', $shippingMethodCode));
+            throw new NotFoundHttpException(\sprintf('The shipping method "%s" doesn\'t exist.', $shippingMethodCode));
         }
 
         // TODO: do this at the SQL layer in a repository, at the same do a proper JOIN...
@@ -47,8 +47,8 @@ final class LocationsController
             return $p->isEnabled();
         })->toArray();
 
-        usort($locations, function ($a, $b) {
-            return $a->getPosition() <=> $b->getPosition();
+        usort($locations, function ($locationA, $locationB) {
+            return $locationA->getPosition() <=> $locationB->getPosition();
         });
 
         // TODO: add groups to filter unneeded props

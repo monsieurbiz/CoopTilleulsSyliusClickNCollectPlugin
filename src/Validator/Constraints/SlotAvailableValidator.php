@@ -15,7 +15,10 @@ namespace CoopTilleuls\SyliusClickNCollectPlugin\Validator\Constraints;
 
 use CoopTilleuls\SyliusClickNCollectPlugin\CollectionTime\RecurrenceInstanceFinderInterface;
 use CoopTilleuls\SyliusClickNCollectPlugin\Entity\ClickNCollectShipmentInterface;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use InvalidArgumentException;
+use RuntimeException;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -38,6 +41,11 @@ final class SlotAvailableValidator extends ConstraintValidator
         $this->recurrenceInstanceFinder = $recurrenceInstanceFinder;
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     *
+     * @param mixed $value
+     */
     public function validate($value, Constraint $constraint): void
     {
         if (!$constraint instanceof SlotAvailableInterface) {
@@ -67,10 +75,10 @@ final class SlotAvailableValidator extends ConstraintValidator
 
         try {
             ($this->recurrenceInstanceFinder)($value);
-        } catch (\RuntimeException | \InvalidArgumentException $e) {
+        } catch (RuntimeException|InvalidArgumentException $e) {
             $this->context
                 ->buildViolation($constraint->message)
-                ->setParameter('{{ value }}', $collectionTime->format(\DateTime::ATOM))
+                ->setParameter('{{ value }}', $collectionTime->format(DateTime::ATOM))
                 ->addViolation()
             ;
         }

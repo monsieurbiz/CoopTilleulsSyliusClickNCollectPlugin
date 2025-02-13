@@ -14,7 +14,9 @@ declare(strict_types=1);
 namespace CoopTilleuls\SyliusClickNCollectPlugin\CollectionTime;
 
 use CoopTilleuls\SyliusClickNCollectPlugin\Entity\ClickNCollectShipmentInterface;
+use InvalidArgumentException;
 use Recurr\Recurrence;
+use RuntimeException;
 
 /**
  * Finds a Recurrence instance for a given shipment.
@@ -24,8 +26,8 @@ use Recurr\Recurrence;
 interface RecurrenceInstanceFinderInterface
 {
     /**
-     * @throws \RuntimeException
-     * @throws \InvalidArgumentException
+     * @throws RuntimeException
+     * @throws InvalidArgumentException
      */
     public function __invoke(ClickNCollectShipmentInterface $shipment): Recurrence;
 }

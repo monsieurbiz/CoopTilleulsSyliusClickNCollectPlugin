@@ -14,7 +14,10 @@ declare(strict_types=1);
 namespace CoopTilleuls\SyliusClickNCollectPlugin\CollectionTime;
 
 use CoopTilleuls\SyliusClickNCollectPlugin\Entity\ClickNCollectShipmentInterface;
+use DateTime;
+use InvalidArgumentException;
 use Recurr\Recurrence;
+use Recurr\Rule;
 
 /**
  * @inheritdoc
@@ -32,16 +35,16 @@ final class RecurrenceInstanceFinder implements RecurrenceInstanceFinderInterfac
 
     public function __invoke(ClickNCollectShipmentInterface $shipment): Recurrence
     {
-        /** @var \DateTime $collectionTime */
+        /** @var DateTime $collectionTime */
         if (null === $collectionTime = $shipment->getCollectionTime()) {
-            throw new \InvalidArgumentException('This shipment has no associated collection time.');
+            throw new InvalidArgumentException('This shipment has no associated collection time.');
         }
         if (null === $location = $shipment->getLocation()) {
-            throw new \InvalidArgumentException('This shipment has no associated location.');
+            throw new InvalidArgumentException('This shipment has no associated location.');
         }
 
-        $rrule = new \Recurr\Rule($location->getRrule());
-        $recurrence = new \Recurr\Recurrence(
+        $rrule = new Rule($location->getRrule());
+        $recurrence = new Recurrence(
             $collectionTime,
             (clone $collectionTime)->add($rrule->getStartDate()->diff($rrule->getEndDate()))
         );

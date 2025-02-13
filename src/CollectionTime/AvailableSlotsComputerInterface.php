@@ -15,6 +15,8 @@ namespace CoopTilleuls\SyliusClickNCollectPlugin\CollectionTime;
 
 use CoopTilleuls\SyliusClickNCollectPlugin\Entity\ClickNCollectShipmentInterface;
 use CoopTilleuls\SyliusClickNCollectPlugin\Entity\LocationInterface;
+use DateTimeInterface;
+use InvalidArgumentException;
 use Recurr\Recurrence;
 
 /**
@@ -25,9 +27,11 @@ use Recurr\Recurrence;
 interface AvailableSlotsComputerInterface
 {
     /**
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
      * @return Recurrence[]
+     *
+     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */
-    public function __invoke(ClickNCollectShipmentInterface $shipment, LocationInterface $location, ?\DateTimeInterface $startDate = null, ?\DateTimeInterface $endDate = null, bool $onlyFuture = false, int $limit = 732): array;
+    public function __invoke(ClickNCollectShipmentInterface $shipment, LocationInterface $location, ?DateTimeInterface $startDate = null, ?DateTimeInterface $endDate = null, bool $onlyFuture = false, int $limit = 732): array;
 }

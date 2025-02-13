@@ -1,18 +1,23 @@
 includes:
-    - vendor/phpstan/phpstan-doctrine/extension.neon
-    - vendor/phpstan/phpstan-webmozart-assert/extension.neon
+    - phpstan-baseline.neon
 
 parameters:
-    level: max
+    level: 8
     paths:
         - %rootDir%/src/
 
-    checkMissingIterableValueType: false
-
-    excludes_analyse:
+    excludePaths:
         # Makes PHPStan crash
-        - 'src/DependencyInjection/Configuration.php'
         - 'src/DependencyInjection/CoopTilleulsSyliusClickNCollectExtension.php'
 
         # Test dependencies
         - 'tests/Application/**/*'
+
+        # Ignore Class extends unknown class
+        - 'src/Exporter/Plugin/OrderResourcePlugin.php'
+
+    ignoreErrors:
+        - identifier: missingType.generics
+        - identifier: missingType.iterableValue
+
+    reportUnmatchedIgnoredErrors: false

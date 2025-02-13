@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace CoopTilleuls\SyliusClickNCollectPlugin\Entity;
 
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -24,18 +25,23 @@ trait ClickNCollectShipment
     /**
      * @ORM\ManyToOne(targetEntity=\CoopTilleuls\SyliusClickNCollectPlugin\Entity\LocationInterface::class)
      */
+    #[ORM\ManyToOne(targetEntity: LocationInterface::class)]
     protected ?LocationInterface $location = null;
 
     /**
      * @ORM\Column(type="string", nullable=true)
      */
+    #[ORM\Column(type: 'string', nullable: true)]
     protected ?string $pin = null;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true, name="collection_time")
+     *
      * @Assert\GreaterThan("now", groups={"sylius"})
      */
-    protected ?\DateTimeInterface $collectionTime = null;
+    #[ORM\Column(name: 'collection_time', type: 'datetime_immutable', nullable: true)]
+    #[Assert\GreaterThan('now', groups: ['sylius'])]
+    protected ?DateTimeInterface $collectionTime = null;
 
     public function getLocation(): ?LocationInterface
     {
@@ -51,16 +57,16 @@ trait ClickNCollectShipment
     {
         $this->location = $location;
         if (null !== $location && null === $this->pin && $location->isGeneratePin()) {
-            $this->pin = sprintf('%04d', random_int(0, 9999));
+            $this->pin = \sprintf('%04d', random_int(0, 9999));
         }
     }
 
-    public function getCollectionTime(): ?\DateTimeInterface
+    public function getCollectionTime(): ?DateTimeInterface
     {
         return $this->collectionTime;
     }
 
-    public function setCollectionTime(?\DateTimeInterface $collectionTime): void
+    public function setCollectionTime(?DateTimeInterface $collectionTime): void
     {
         $this->collectionTime = $collectionTime;
     }

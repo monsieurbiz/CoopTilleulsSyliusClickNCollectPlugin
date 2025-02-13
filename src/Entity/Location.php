@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace CoopTilleuls\SyliusClickNCollectPlugin\Entity;
 
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Sylius\Component\Core\Model\ShippingMethodInterface;
@@ -27,7 +28,6 @@ use Sylius\Component\Resource\Model\ToggleableTrait;
 class Location implements LocationInterface
 {
     use TimestampableTrait;
-
     use ToggleableTrait;
 
     /** @var mixed */
@@ -68,7 +68,7 @@ class Location implements LocationInterface
 
     public function __construct()
     {
-        $this->createdAt = new \DateTimeImmutable();
+        $this->createdAt = new DateTimeImmutable();
         $this->shippingMethods = new ArrayCollection();
     }
 

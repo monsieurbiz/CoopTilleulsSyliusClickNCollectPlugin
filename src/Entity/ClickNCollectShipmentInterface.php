@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace CoopTilleuls\SyliusClickNCollectPlugin\Entity;
 
+use DateTimeInterface;
 use Sylius\Component\Core\Model\ShipmentInterface;
 
 /**
@@ -26,9 +27,9 @@ interface ClickNCollectShipmentInterface extends ShipmentInterface
 
     public function setLocation(?LocationInterface $location): void;
 
-    public function getCollectionTime(): ?\DateTimeInterface;
+    public function getCollectionTime(): ?DateTimeInterface;
 
-    public function setCollectionTime(?\DateTimeInterface $collectionTime);
+    public function setCollectionTime(?DateTimeInterface $collectionTime);
 
     public function getPin(): ?string;
 

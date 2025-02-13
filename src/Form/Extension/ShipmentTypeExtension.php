@@ -14,7 +14,12 @@ declare(strict_types=1);
 namespace CoopTilleuls\SyliusClickNCollectPlugin\Form\Extension;
 
 use CoopTilleuls\SyliusClickNCollectPlugin\Entity\LocationInterface;
+use DateTime;
+use DateTimeImmutable;
+use DateTimeInterface;
+use DateTimeZone;
 use Doctrine\Persistence\ObjectRepository;
+use Exception;
 use Sylius\Bundle\CoreBundle\Form\Type\Checkout\ShipmentType;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\CallbackTransformer;
@@ -34,6 +39,10 @@ final class ShipmentTypeExtension extends AbstractTypeExtension
         $this->repository = $repository;
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -49,7 +58,7 @@ final class ShipmentTypeExtension extends AbstractTypeExtension
                     }
 
                     if (!$location = $this->repository->findOneBy(['code' => $code])) {
-                        throw new TransformationFailedException(sprintf('Location "%s" doesn\'t exist.', $code));
+                        throw new TransformationFailedException(\sprintf('Location "%s" doesn\'t exist.', $code));
                     }
 
                     return $location;
@@ -58,8 +67,8 @@ final class ShipmentTypeExtension extends AbstractTypeExtension
             ->add(
                 $builder->create('collectionTime', HiddenType::class, [
                     'required' => false,
-                ])->addModelTransformer(new CallbackTransformer(function (?\DateTimeInterface $dateTime): string {
-                    return $dateTime ? $dateTime->format(\DateTime::ATOM) : '';
+                ])->addModelTransformer(new CallbackTransformer(function (?DateTimeInterface $dateTime): string {
+                    return $dateTime ? $dateTime->format(DateTime::ATOM) : '';
                 }, function (?string $value) {
                     if ('' === $value || null === $value) {
                         return null;
@@ -69,8 +78,8 @@ final class ShipmentTypeExtension extends AbstractTypeExtension
                         // Dates are always sent as UTC because of browsers' limitations
                         // See https://fullcalendar.io/docs/timeZone#UTC-coercion
                         // Convert it in the local timezone for storage
-                        return (new \DateTimeImmutable($value, new \DateTimeZone('UTC')))->setTimezone(new \DateTimeZone(date_default_timezone_get()));
-                    } catch (\Exception $e) {
+                        return (new DateTimeImmutable($value, new DateTimeZone('UTC')))->setTimezone(new DateTimeZone(date_default_timezone_get()));
+                    } catch (Exception $e) {
                         throw new TransformationFailedException('Invalid datetime format', 0, $e);
                     }
                 }))

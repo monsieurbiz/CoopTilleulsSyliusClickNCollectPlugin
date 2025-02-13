@@ -27,6 +27,11 @@ use Symfony\Component\Validator\Exception\UnexpectedValueException;
  */
 final class RruleValidator extends ConstraintValidator
 {
+    /**
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     *
+     * @param mixed $value
+     */
     public function validate($value, Constraint $constraint): void
     {
         if (!$constraint instanceof Rrule) {
